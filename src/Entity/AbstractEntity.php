@@ -4,16 +4,32 @@ namespace App\Entity;
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Doctrine\ORM\Mapping as ORM;
 
 abstract class AbstractEntity
 {
-    /** @var UuidInterface */
+    /**
+     * @var UuidInterface
+     *
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     */
     protected $id;
 
-    /** @var \DateTime */
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
     protected $created;
 
-    /** @var \DateTime|null  */
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
     protected $updated;
 
     /**
