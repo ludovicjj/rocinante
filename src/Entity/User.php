@@ -2,10 +2,9 @@
 
 namespace App\Entity;
 
-
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class User implements UserInterface
+class User extends AbstractEntity implements UserInterface
 {
     const STATUS_PENDING_VALIDATION = "pending_activation";
     const STATUS_ENABLE = "enable";
@@ -36,12 +35,13 @@ class User implements UserInterface
         $this->email = $email;
         $this->roles[] = $roles;
         $this->status = self::STATUS_PENDING_VALIDATION;
+        parent::__construct();
     }
 
     /**
      * @return string
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -49,7 +49,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -57,7 +57,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -65,7 +65,7 @@ class User implements UserInterface
     /**
      * @return array
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         return $this->roles;
     }
@@ -73,7 +73,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
@@ -81,7 +81,7 @@ class User implements UserInterface
     /**
      * @return string|null
      */
-    public function getSalt()
+    public function getSalt(): ?string
     {
         return null;
     }
