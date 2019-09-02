@@ -3,25 +3,52 @@
 namespace App\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class User
+ *
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ */
 class User extends AbstractEntity implements UserInterface
 {
     const STATUS_PENDING_VALIDATION = "pending_activation";
     const STATUS_ENABLE = "enable";
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=30, unique=true)
+     */
     private $username;
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=50)
+     */
     private $password;
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=60, unique=true)
+     */
     private $email;
 
-    /** @var array */
+    /**
+     * @var array
+     *
+     * @ORM\Column(type="array")
+     */
     private $roles;
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=20)
+     */
     private $status;
 
     public function __construct(
