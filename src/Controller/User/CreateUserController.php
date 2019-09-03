@@ -42,7 +42,7 @@ class CreateUserController
 
         return new Response(
             $this->twig->render(
-                '',
+                'user/create_user.html.twig',
                 [
                     'form' => $form->createView(),
                 ]
