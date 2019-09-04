@@ -3,7 +3,16 @@
 namespace App\DTO;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\CreateUser\UniqueEntity;
 
+/**
+ * Class CreateUserDTO
+ * @UniqueEntity(
+ *     class="App\Entity\User",
+ *     fields={"username", "email"},
+ *     message={"username" : "Ce pseudo est déjà utilisé.", "email" : "Cette email est déjà utilisée."}
+ * )
+ */
 class CreateUserDTO
 {
     /**
