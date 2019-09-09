@@ -4,9 +4,11 @@ namespace App\Handler;
 
 use App\Builder\User\CreateUserBuilder;
 use App\Entity\User;
+use App\Helper\Mailer;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 class CreateUserHandler
 {
@@ -16,12 +18,22 @@ class CreateUserHandler
     /** @var EntityManagerInterface */
     private $entityManager;
 
+    /** @var FlashBagInterface */
+    private $flashBag;
+
+    /** @var Mailer */
+    private $mailer;
+
     public function __construct(
         CreateUserBuilder $createUserBuilder,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        FlashBagInterface $flashBag,
+        Mailer $mailer
     ) {
         $this->createUserBuilder = $createUserBuilder;
         $this->entityManager = $entityManager;
+        $this->flashBag = $flashBag;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -39,6 +51,13 @@ class CreateUserHandler
             /** @var UserRepository $userRepository */
             $userRepository = $this->entityManager->getRepository(User::class);
             $userRepository->persister($user);
+
+            $this->flashBag->add(
+                'success',
+                sprintf('Un email de validation vous a été envoyé à %s', $user->getEmail())
+            );
+
+            $this->mailer->sendMail($user, 'Validation du compte', 'create_user');
 
             return true;
         }
