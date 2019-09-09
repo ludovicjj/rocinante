@@ -4,6 +4,8 @@ namespace App\Handler;
 
 use App\Builder\User\CreateUserBuilder;
 use App\Entity\User;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 
 class CreateUserHandler
@@ -11,10 +13,15 @@ class CreateUserHandler
     /** @var CreateUserBuilder */
     private $createUserBuilder;
 
+    /** @var EntityManagerInterface */
+    private $entityManager;
+
     public function __construct(
-        CreateUserBuilder $createUserBuilder
+        CreateUserBuilder $createUserBuilder,
+        EntityManagerInterface $entityManager
     ) {
         $this->createUserBuilder = $createUserBuilder;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -28,6 +35,10 @@ class CreateUserHandler
 
             /** @var User $user */
             $user = $this->createUserBuilder->build($form->getData());
+
+            /** @var UserRepository $userRepository */
+            $userRepository = $this->entityManager->getRepository(User::class);
+            $userRepository->persister($user);
 
             return true;
         }
