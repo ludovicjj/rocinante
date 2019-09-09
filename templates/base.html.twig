@@ -49,6 +49,13 @@
             </div>
         </nav>
 
+        {# Success Flash Message #}
+        {% for message in app.session.flashBag.get('success') %}
+            <div class="alert alert-success text-center">
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+
         {% block body %}{% endblock %}
 
         <!-- JQuery & Popper & JS Bootstrap -->
