@@ -43,7 +43,7 @@ class Mailer
             ->setBody(
                 $this->twig->render('email/'.$template.'.html.twig', [
                     'username' => $user->getUsername(),
-                    'token' => $user->getId()
+                    'id' => $user->getId()
                 ]),
                 'text/html'
             )
