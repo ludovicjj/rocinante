@@ -18,7 +18,7 @@ security:
             provider: in_database
             form_login:
                 login_path: login
-                login_check: login
+                check_path : login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
