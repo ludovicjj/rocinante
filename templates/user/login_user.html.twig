@@ -11,7 +11,12 @@
         <form method="post">
             <div class="row">
                 <div class="col-12 col-sm-12 offset-md-3 col-md-6">
-                    <div class="col-md-12 form-group">
+
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+                    <div class="form-group">
                         {# Username #}
                         <label for="_username">Pseudo</label>
                         <input type="text"
@@ -22,9 +27,9 @@
                                required autofocus
                         >
                     </div>
-                    <div class="col-md-12 form-group">
+                    <div class="form-group">
                         {# Password #}
-                        <label for="_password">Pseudo</label>
+                        <label for="_password">Mot de Passe</label>
                         <input type="password"
                                name="password"
                                id="_password"
@@ -35,10 +40,10 @@
                     {# csrf_token #}
                     <input type="hidden"
                            name="_csrf_token"
-                           value="{{ csrf_token('snowtricksauthentification') }}"
+                           value="{{ csrf_token('monsupertoken') }}"
                     >
 
-                    <button type="submit" class="btn btn-success mt-2">>Connection</button>
+                    <button type="submit" class="btn btn-success mt-2">Connection</button>
                 </div>
             </div>
         </form>
