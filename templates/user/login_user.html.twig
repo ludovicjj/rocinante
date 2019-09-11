@@ -1,7 +1,46 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h3>Connection</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 offset-md-3 col-md-6">
+                <h4>Connexion</h4>
+            </div>
+        </div>
 
-    <p>Faire formulaire de connection avec token csrf</p>
+        <form method="post">
+            <div class="row">
+                <div class="col-12 col-sm-12 offset-md-3 col-md-6">
+                    <div class="col-md-12 form-group">
+                        {# Username #}
+                        <label for="_username">Pseudo</label>
+                        <input type="text"
+                               name="username"
+                               id="_username"
+                               class="form-control"
+                               value="{{ last_username }}"
+                               required autofocus
+                        >
+                    </div>
+                    <div class="col-md-12 form-group">
+                        {# Password #}
+                        <label for="_password">Pseudo</label>
+                        <input type="password"
+                               name="password"
+                               id="_password"
+                               class="form-control"
+                               required
+                        >
+                    </div>
+                    {# csrf_token #}
+                    <input type="hidden"
+                           name="_csrf_token"
+                           value="{{ csrf_token('snowtricksauthentification') }}"
+                    >
+
+                    <button type="submit" class="btn btn-success mt-2">>Connection</button>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}
