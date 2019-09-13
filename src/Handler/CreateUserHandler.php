@@ -57,7 +57,12 @@ class CreateUserHandler
                 sprintf('Un email de validation vous a été envoyé à %s', $user->getEmail())
             );
 
-            $this->mailer->sendMail($user, 'Validation du compte', 'create_user');
+            $this->mailer->sendMail(
+                $this->mailer::PARAMS_MAIL_APPLICATION,
+                $user,
+                'Rocinante - Inscription',
+                'create_user'
+            );
 
             return true;
         }

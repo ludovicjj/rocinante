@@ -7,6 +7,11 @@ use Twig\Environment;
 
 class Mailer
 {
+    const PARAMS_MAIL_APPLICATION = [
+        'email' => 'jahanlud@gmail.com',
+        'title' => 'Validation du compte',
+    ];
+
     /** @var Environment */
     private $twig;
 
@@ -22,6 +27,7 @@ class Mailer
     }
 
     /**
+     * @param array $from
      * @param User $user
      * @param string $subject
      * @param string $template
@@ -31,6 +37,7 @@ class Mailer
      * @throws \Twig\Error\SyntaxError
      */
     public function sendMail(
+        array $from,
         User $user,
         string $subject,
         string $template
@@ -38,7 +45,7 @@ class Mailer
     {
         $message = (new \Swift_Message())
             ->setSubject($subject)
-            ->setFrom('jahanlud@gmail.com')
+            ->setFrom($from['email'], $from['title'])
             ->setTo($user->getEmail())
             ->setBody(
                 $this->twig->render('email/'.$template.'.html.twig', [

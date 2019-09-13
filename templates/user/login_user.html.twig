@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 offset-md-3 col-md-6">
+                <h4>Connexion</h4>
+            </div>
+        </div>
+
+        <form method="post">
+            <div class="row">
+                <div class="col-12 col-sm-12 offset-md-3 col-md-6">
+
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+                    <div class="form-group">
+                        {# Username #}
+                        <label for="_username">Pseudo</label>
+                        <input type="text"
+                               name="username"
+                               id="_username"
+                               class="form-control"
+                               value="{{ last_username }}"
+                               required autofocus
+                        >
+                    </div>
+                    <div class="form-group">
+                        {# Password #}
+                        <label for="_password">Mot de Passe</label>
+                        <input type="password"
+                               name="password"
+                               id="_password"
+                               class="form-control"
+                               required
+                        >
+                    </div>
+                    {# csrf_token #}
+                    <input type="hidden"
+                           name="_csrf_token"
+                           value="{{ csrf_token('monsupertoken') }}"
+                    >
+
+                    <button type="submit" class="btn btn-success mt-2">Connection</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
